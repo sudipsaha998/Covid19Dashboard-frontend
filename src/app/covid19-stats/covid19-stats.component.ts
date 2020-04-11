@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PipeTransform } from '@angular/core';
 import { Covid19StatsService } from 'src/services/covid19-stats.service';
 import { Covid19Stat, Covid19Affected } from 'src/models/covid19-response';
 import { CountryISO3 } from 'src/assets/countries'
+
+import { FormControl } from '@angular/forms';
+
+import { Observable, of } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-covid19-stats',
@@ -14,13 +19,33 @@ export class Covid19StatsComponent implements OnInit {
   deaths: number;
   affectedByCountry: any[] = [];
   countries: string[];
-  countryCodes: any = CountryISO3;
+  countryCodes: Observable<any[]> = of(CountryISO3);
+  page: number = 1;
+  pageSize: number = 25;
+  collectionSize = CountryISO3.length;
   flag: boolean;
-  constructor(private covid19StatService: Covid19StatsService) { }
+  countries$: Observable<any[]>;
+  filter = new FormControl('');
+  constructor(private covid19StatService: Covid19StatsService) {
+
+  }
 
   ngOnInit() {
     this.getCovid19StatWorldwide();
     this.getUpdatedCovid19Cases();
+    //this.countryCodes = of(CountryISO3.slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize));
+    this.countryCodes = this.filter.valueChanges.pipe(
+      startWith(''),
+      map(text => this.search(text))
+    );
+  }
+
+  search(text: string): any[] {
+    //let countries = CountryISO3.slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + 100);
+    return CountryISO3.filter(country => {
+      const term = text.toLowerCase();
+      return country['Country'].toLowerCase().includes(term);
+    });
   }
 
   getCovid19StatWorldwide(): void {
