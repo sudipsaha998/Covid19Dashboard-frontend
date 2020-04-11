@@ -1,0 +1,6 @@
+<h3>{{yourCountry}}</h3>
+<p>Confirmed: {{confirmed}} Recovered: {{recovered}} Deaths: {{deaths}}</p>
+<div *ngIf='updatedDataAvailable' class="chart-wrapper">
+    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+    </canvas>
+</div>

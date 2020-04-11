@@ -1,0 +1,21 @@
+<p class="pb-5">Confirmed: {{confirmed}} Recovered: {{recovered}} Deaths: {{deaths}}</p>
+<table *ngIf="flag" class="table table-striped table-responsive">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Country</th>
+            <th scope="col">Confirmed</th>
+            <th scope="col">Recovered</th>
+            <th scope="col">Deaths</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor='let country of countryCodes'>
+            <th scope="row"></th>
+            <td>{{country["Country"]}}</td>
+            <td>{{countries[country["Alpha-3 code"]] ? countries[country["Alpha-3 code"]].confirmed : 0}}</td>
+            <td>{{countries[country["Alpha-3 code"]] ? countries[country["Alpha-3 code"]].recovered : 0}}</td>
+            <td>{{countries[country["Alpha-3 code"]] ? countries[country["Alpha-3 code"]].deaths : 0}}</td>
+        </tr>
+    </tbody>
+</table>
