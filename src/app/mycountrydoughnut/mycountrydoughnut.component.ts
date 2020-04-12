@@ -72,7 +72,7 @@ export class MycountrydoughnutComponent implements OnInit, OnChanges {
       });
     },
       error => {
-        this.yourCountry = 'INIDA';
+        this.yourCountry = 'INDIA';
         this.yourCountryISO3 = 'IND';
         this.updateDoughnutChart();
       });

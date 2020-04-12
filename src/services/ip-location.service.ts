@@ -11,7 +11,7 @@ export class IpLocationService {
   constructor(private http: HttpClient) { }
 
   getIPAddress(): Observable<MyIp> {
-    return this.http.get<MyIp>("http://api.ipify.org/?format=json");
+    return this.http.get<MyIp>("https://api.ipify.org/?format=json");
   }
 
   getLocationFromIp(ip: string): Observable<MyLocation> {
