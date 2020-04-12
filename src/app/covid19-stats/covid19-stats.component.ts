@@ -18,7 +18,7 @@ export class Covid19StatsComponent implements OnInit {
   recovered: number;
   deaths: number;
   affectedByCountry: any[] = [];
-  countries: string[];
+  countries: any;
   countryCodes: Observable<any[]> = of(CountryISO3);
   page: number = 1;
   pageSize: number = 25;
@@ -38,6 +38,8 @@ export class Covid19StatsComponent implements OnInit {
       startWith(''),
       map(text => this.search(text))
     );
+
+    console.log("on init");
   }
 
   search(text: string): any[] {

@@ -12,18 +12,18 @@ export class Covid19StatsService {
     constructor(private http: HttpClient) { }
 
     getCovid19StatWorldwide(): Observable<Covid19Stat> {
-        return this.http.get<Covid19Stat>('http://localhost:8080/global/latest');
+        return this.http.get<Covid19Stat>('/global/latest');
     }
 
     getUpdatedCovid19Cases(): Observable<Covid19Stat> {
-        return this.http.get<Covid19Stat>('http://localhost:8080/global/total');
+        return this.http.get<Covid19Stat>('/global/total');
     }
 
     getYourCountryCovid19Cases(country: string): Observable<Covid19Affected> {
-        return this.http.get<Covid19Affected>(`http://localhost:8080/country/${country}/latest`);
+        return this.http.get<Covid19Affected>(`/country/${country}/latest`);
     }
 
     getCovid19StatByDateWorldwide(): Observable<Covid19Stat> {
-        return this.http.get<Covid19Stat>('http://localhost:8080/global/date');
+        return this.http.get<Covid19Stat>('/global/date');
     }
 }
